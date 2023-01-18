@@ -2,10 +2,11 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { RaterContext } from "../../App";
 import { Toaster, toast } from "react-hot-toast";
+import { GrClose } from "react-icons/gr";
 
-const RatePopUp = ({ song_id }) => {
+const RatePopUp = ({ song_id, showRaterPopUp }) => {
   const { baseUrl } = useContext(RaterContext);
-  const songs = true;
+  const [loader, setloader] = useState(false);
 
   const mytoken = localStorage.getItem("token");
   console.log(song_id);
@@ -14,6 +15,7 @@ const RatePopUp = ({ song_id }) => {
   const [comment, setcomment] = useState<string>();
 
   const RateSong = () => {
+    setloader(true);
     if (clicked != "" && comment && song_id) {
       axios
         .post(
@@ -35,24 +37,44 @@ const RatePopUp = ({ song_id }) => {
           setTimeout(() => {
             location.reload();
           }, 2000);
+          setloader(false);
         })
         .catch((err) => {
           toast.error(err.response.data.message);
           setTimeout(() => {
             location.reload();
           }, 3000);
+          setloader(false);
         });
     } else {
       toast.error("FILL ALL THE FIELDS");
+      setloader(false);
     }
   };
 
   //
   return (
-    <div className="h-[80%] max-md:h-[70%] shadow-xl w-[420px] max-md:w-[80%] px-4 max-md:px-3 pt-8 pb-4 rounded-2xl bg-[white] flex-col gap-4 flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-50">
+    <div className="h-[80%] max-md:h-[70%] shadow-xl w-[420px] max-md:w-[80%] px-4 max-md:px-3 pt-8 pb-4 rounded-2xl bg-[white] flex-col gap-4 flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-50 transition duration-700">
+      {loader ? (
+        <div className="w-full h-full flex justify-center items-full">
+          <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-50">
+            {" "}
+            <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
+          </div>
+          <br />
+        </div>
+      ) : null}
       <Toaster />
-      <div className="w-full text-2xl text-[#02123B] font-semibold">
-        Rate and Review Song
+      <div className="w-full items-center flex justify-between">
+        <div className="w-full text-2xl text-[#02123B] font-semibold">
+          Rate and Review Song
+        </div>
+        <div>
+          <GrClose
+            onClick={() => showRaterPopUp(false)}
+            className="font-bold cursor-pointer"
+          />
+        </div>
       </div>
       <div className="flex gap-4 max-md:gap-2 justify-around">
         {ratings.map((rating) => {

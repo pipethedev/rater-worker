@@ -93,7 +93,9 @@ const Song = () => {
         <DashboardLayout>
           <div className="w-full">
             {" "}
-            {showRaterPopUp ? <RatePopUp song_id={id} /> : null}
+            {showRaterPopUp ? (
+              <RatePopUp song_id={id} showRaterPopUp={setshowRaterPopUp} />
+            ) : null}
             <div className="w-full flex justify-between items-center h-[58px] mb-6">
               <div className="flex flex-col justify-between h-full">
                 <div className="text-[28px] font-semibold text-[black] px-3">

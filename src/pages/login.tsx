@@ -7,7 +7,13 @@ import { Toaster, toast } from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
-  useEffect(() => {}, []);
+
+  const mytoken = localStorage.getItem("token");
+  useEffect(() => {
+    if (mytoken) {
+      navigate("/dashboard/home");
+    }
+  }, []);
   const [email, setemail] = useState<string>();
   const [password, setpassword] = useState<string>();
   const [loading, setloading] = useState(false);

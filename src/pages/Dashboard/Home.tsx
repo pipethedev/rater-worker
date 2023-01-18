@@ -6,6 +6,7 @@ import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import { BsDownload } from "react-icons/bs";
 
 import { FcSearch } from "react-icons/fc";
+import { TfiSlice } from "react-icons/tfi";
 
 const Home = () => {
   const { baseUrl, token, user } = useContext(RaterContext);
@@ -37,7 +38,7 @@ const Home = () => {
       },
     })
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setmyMusic(res.data.data);
       })
 
@@ -211,23 +212,39 @@ const Home = () => {
             </div>
             {/* RECENT MUSICS  */}
             {myMusic?.length > 0 ? (
-              <section className="gap-2 mt-2 flex flex-wrap">
-                {myMusic?.map((music) => {
+              <section className="gap-2 mt-2 flex justify-around">
+                {myMusic.slice(0, 4).map((music) => {
                   return (
                     <div
                       className="cursor-pointer max-md:w-full gap-4 max-md:gap-6 max-md:items-start my-4 flex flex-col max-md:flex-row max-md:border-b-[1px] max-md:border-[#ebe7e7] pb-2"
                       onClick={() => {
-                        navigate(`/dashboard/${music.id}`);
+                        navigate(`/dashboard/${music.song.id}`);
                       }}
                     >
                       {musicSvg()}
                       <div className="flex flex-col gap-2">
                         <div className="font-semibold text-[20px] text-[black] max-md:text-base">
-                          {music.title}
+                          {music.song.title}
                         </div>
-                        {/* <div className="font-medium text-[#666666] text-sm max-sm:text-[12px]">
-                              {music.playTime}
-                            </div> */}
+                        {music.song.ratings == 0 ? (
+                          <div className="font-bold text-sm text-[#3a00c2]">
+                            No ratings yet
+                          </div>
+                        ) : music.song.ratings.length > 0 ? (
+                          music.song.ratings[0].rating == "Good" ? (
+                            <div className="text-[#00C288] font-semibold text-base max-md:text-sm bg-[#EBFFF9] rounded-[64px] p-1 w-[75px] flex items-center justify-center">
+                              {music.song.ratings[0].rating}
+                            </div>
+                          ) : music.song.ratings[0]?.rating == "Fair" ? (
+                            <div className="text-[#3a00c2] font-semibold text-base max-md:text-sm bg-[#d1c2f5] rounded-[64px] p-1 w-[75px] flex items-center justify-center">
+                              {music?.song?.ratings[0]?.rating}
+                            </div>
+                          ) : music.song.ratings[0]?.rating == "Bad" ? (
+                            <div className="text-[#e94444] font-semibold text-base max-md:text-sm bg-[#ffc107] rounded-[64px] p-1 w-[75px] flex items-center justify-center">
+                              {music?.song?.ratings[0]?.rating}
+                            </div>
+                          ) : null
+                        ) : null}
                       </div>
                     </div>
                   );

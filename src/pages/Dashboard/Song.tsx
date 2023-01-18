@@ -76,7 +76,7 @@ const Song = () => {
       },
     })
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setmyMusic(res.data.data);
 
         setloading(false);
@@ -244,7 +244,7 @@ const Song = () => {
                       className="text-[#777777] text-sm font-medium mt-2 cursor-pointer"
                       onClick={() => setside("feedbackss")}
                     >
-                      Your Feedback
+                      Admin Feedback
                     </div>
                   </div>
                 ) : (
@@ -257,7 +257,7 @@ const Song = () => {
                     </div>
                     <div className="w-[179px] flex flex-col gap-3">
                       <div className="rounded-[48px] bg-[#f5f8ff] py-[10px] w-full text-[#3b71f7] font-semibold text-sm text-center">
-                        Your Feedback
+                        Admin Feedback
                       </div>
                       <div className="w-full h-1 bg-[#3B71F7]"></div>
                     </div>
@@ -278,7 +278,7 @@ const Song = () => {
               ) : side == "reviews" && myMusic.ratings.length > 0 ? (
                 <section className="w-full flex justify-between flex-wrap gap-8">
                   {myMusic.ratings.map((review, key) => {
-                    console.log(review);
+                    // console.log(review);
                     return (
                       <div
                         key={key}

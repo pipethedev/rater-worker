@@ -57,6 +57,7 @@ const Settings = () => {
           first_name: firstName,
           last_name: lastName,
           email: email,
+          phone_number: "",
         },
         {
           headers: {
@@ -65,9 +66,9 @@ const Settings = () => {
         }
       )
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           setloader(false);
-          toast.success("Song Updated Profile!");
+          toast.success("Successfully Updated Profile!");
         })
 
         .catch((err) => {
@@ -87,6 +88,7 @@ const Settings = () => {
       }, 3000);
     }
     if (oldPass && newPass && newPassConfirm) {
+      setloader(true);
       await Axios.put(
         `${baseUrl}api/v1/user/profile/change-password`,
         {
@@ -101,14 +103,19 @@ const Settings = () => {
         }
       )
         .then((res) => {
-          console.log(res);
+          setloader(false);
+          // console.log(res);
+          toast.success("Password Updated Successfully");
         })
 
         .catch((err) => {
+          setloader(false);
           console.log(err);
+          toast.error(err.response.data.message);
         });
     } else {
-      // console.log("Fill all");
+      setloader(false);
+      toast.error("Please fill all fields");
     }
   };
   if (user) {
@@ -246,7 +253,16 @@ const Settings = () => {
                 </div>
               </section>
             ) : (
-              <section className="w-full mt-8 flex flex-col gap-8">
+              <section className="w-full mt-8 flex flex-col gap-8 relative">
+                {loader ? (
+                  <div className="w-full h-full flex justify-center items-full">
+                    <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-50">
+                      {" "}
+                      <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
+                    </div>
+                    <br />
+                  </div>
+                ) : null}
                 <div className="w-full flex justify-between items-center h-[58px] mb-6">
                   <div className="flex flex-col justify-between h-full">
                     <div className="text-[28px] font-semibold text-[black] px-3">
@@ -260,27 +276,28 @@ const Settings = () => {
                 <div className="w-full mt-4 space-y-4">
                   <InputContainer
                     labelText="Current Password"
-                    type="Password"
+                    type="password"
                     onChange={(e) => setoldPass(e.target.value)}
                   />
                   <InputContainer
                     labelText="New Password"
-                    type="Password"
+                    type="password"
                     onChange={(e) => setnewPass(e.target.value)}
                   />
                   <InputContainer
                     labelText="Confirm Password"
-                    type="Password"
+                    type="password"
                     onChange={(e) => setnewPassConfirm(e.target.value)}
                   />
                 </div>
                 <div className="w-full mt-4">
-                  <div
+                  <button
                     className="w-[190px] h-[54px] rounded-[64px] bg-[#3b71f7] flex justify-center items-center text-[white] font-semibold text-base cursor-pointer"
                     onClick={changePassword}
+                    disabled={loader}
                   >
                     Save New Password
-                  </div>
+                  </button>
                 </div>
               </section>
             )}

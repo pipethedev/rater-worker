@@ -103,7 +103,7 @@ const Explore = () => {
   );
 
   if (myMusic) {
-    console.log(myMusic);
+    // console.log(myMusic);
     return (
       <div>
         <DashboardLayout>

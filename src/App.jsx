@@ -7,6 +7,8 @@ import Explore from "./pages/Dashboard/Explore";
 import Settings from "./pages/Dashboard/Settings";
 import Song from "./pages/Dashboard/Song";
 import Axios from "axios";
+import Reset from "./pages/reset";
+import Forgotpassword from "./pages/forgotpassword";
 
 export const RaterContext = createContext();
 
@@ -39,6 +41,7 @@ const App = () => {
           {/* AUTH PAGES  */}
           <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="/reset/:token" element={<Reset />} />
           </Routes>
 
           {/* DASHBOARD PAGES */}
@@ -46,6 +49,8 @@ const App = () => {
             <Route path="/dashboard/home" element={<Home />} />
             <Route path="/dashboard/library" element={<Library />} />
             <Route path="/dashboard/explore" element={<Explore />} />
+
+            <Route path="/forgotpassword" element={<Forgotpassword />} />
             <Route path="/dashboard/:id" element={<Song />} />
             <Route path="/dashboard/settings" element={<Settings />} />
           </Routes>

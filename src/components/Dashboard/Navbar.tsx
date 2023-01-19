@@ -43,6 +43,14 @@ const Navbar = (props) => {
     },
   ];
 
+  const logout = async () => {
+    await axios
+      .post("https://rater-be.herokuapp.com/api/v1/auth/logout")
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+    localStorage.clear();
+    navigate("/");
+  };
   return (
     <div
       className="w-[280px] h-screen max-md:hidden fixed border-r border-[#E2EAFE] py-12 bg-[white] transition duration-150 ease-in-out"
@@ -61,7 +69,10 @@ const Navbar = (props) => {
             fill="#3B71F7"
           />
         </svg>{" "}
-        <FiLogOut className="cursor-pointer text-2xl text-[#3B71F7]" />
+        <FiLogOut
+          className="cursor-pointer text-2xl text-[#3B71F7]"
+          onClick={logout}
+        />
       </div>
       <section className="flex flex-col gap-2">
         {navLinks.map((link, key) => {

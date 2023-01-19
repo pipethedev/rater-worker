@@ -28,11 +28,7 @@ const Login = () => {
         password: password,
       })
         .then((res) => {
-          // console.log(res.data.message);
-          // console.log(res.data.data.token);
           settoken(res.data.data.token);
-          if (res.data.message) {
-          }
           setTimeout(() => {
             navigate("/dashboard/home");
           }, 2000);
@@ -108,6 +104,12 @@ const Login = () => {
           >
             Login to Music Rater
           </button>
+        </div>{" "}
+        <div
+          className="text-[#3B71F7] font-semibold underline cursor-pointer text-sm"
+          onClick={() => navigate("/forgotpassword")}
+        >
+          Forgot Password
         </div>
       </div>
       <div className="text-[white] gap-4 flex items-center text-base font-medium">

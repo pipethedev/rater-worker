@@ -235,6 +235,10 @@ const Home = () => {
                             <div className="text-[#00C288] font-semibold text-base max-md:text-sm bg-[#EBFFF9] rounded-[64px] p-1 w-[75px] flex items-center justify-center">
                               {music.song.ratings[0].rating}
                             </div>
+                          ) : music.song.ratings[0]?.rating == "AlmostGood" ? (
+                            <div className="text-[#389e7f] font-semibold text-base max-md:text-sm bg-[#f4fcf9] rounded-[64px] p-1 w-[200px] flex items-center justify-center">
+                              Overall: {music.song.ratings[0].rating}
+                            </div>
                           ) : music.song.ratings[0]?.rating == "Fair" ? (
                             <div className="text-[#3a00c2] font-semibold text-base max-md:text-sm bg-[#d1c2f5] rounded-[64px] p-1 w-[75px] flex items-center justify-center">
                               {music?.song?.ratings[0]?.rating}
@@ -265,7 +269,7 @@ const Home = () => {
       <div className="w-full h-screen flex justify-center items-center">
         <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-50">
           {" "}
-          <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
+          <div className="w-8 h-8 border-[6px] border-dashed rounded-full animate-spin dark:border-violet-600"></div>
         </div>
         <br />
       </div>

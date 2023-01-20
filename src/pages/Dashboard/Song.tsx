@@ -206,15 +206,19 @@ const Song = () => {
                   </div>
                 ) : myMusic.ratings[0].rating == "Good" ? (
                   <div className="text-[#00C288] font-semibold text-base max-md:text-sm bg-[#EBFFF9] rounded-[64px] p-1 w-[120px] flex items-center justify-center">
-                    Overall {myMusic.ratings[0].rating}
+                    Overall: {myMusic.ratings[0].rating}
+                  </div>
+                ) : myMusic.ratings[0].rating == "AlmostGood" ? (
+                  <div className="text-[#389e7f] font-semibold text-base max-md:text-sm bg-[#f4fcf9] rounded-[64px] p-1 w-[200px] flex items-center justify-center">
+                    Overall: {myMusic.ratings[0].rating}
                   </div>
                 ) : myMusic.ratings[0]?.rating == "Fair" ? (
                   <div className="text-[#3a00c2] font-semibold text-base max-md:text-sm bg-[#d1c2f5] rounded-[64px] p-1 w-[120px] flex items-center justify-center">
-                    Overall {myMusic?.ratings[0]?.rating}
+                    Overall: {myMusic?.ratings[0]?.rating}
                   </div>
                 ) : myMusic.ratings[0]?.rating == "Bad" ? (
                   <div className="text-[#e94444] font-semibold text-base max-md:text-sm bg-[#ffc107] rounded-[64px] p-1 w-[120px] flex items-center justify-center">
-                    Overall {myMusic?.ratings[0]?.rating}
+                    Overall: {myMusic?.ratings[0]?.rating}
                   </div>
                 ) : null}
                 <div className="h-12 flex items-center mt-8 gap-8">

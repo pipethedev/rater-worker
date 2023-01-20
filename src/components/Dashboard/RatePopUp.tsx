@@ -56,12 +56,9 @@ const RatePopUp = ({ song_id, showRaterPopUp }) => {
   return (
     <div className="h-[80%] max-md:h-[70%] shadow-2xl w-[420px] max-md:w-[80%] px-4 max-md:px-3 pt-8 pb-4 rounded-2xl bg-[white] flex-col gap-4 flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-50 transition duration-700">
       {loader ? (
-        <div className="w-full h-full flex justify-center items-full">
-          <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-50">
-            {" "}
-            <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400"></div>
-          </div>
-          <br />
+        <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-50">
+          {" "}
+          <div className="w-8 h-8 border-[6px] border-dashed rounded-full animate-spin dark:border-violet-600"></div>
         </div>
       ) : null}
       <Toaster />

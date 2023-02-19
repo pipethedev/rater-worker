@@ -3,18 +3,26 @@ import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import { useNavigate, useParams } from "react-router-dom";
 import Axios from "axios";
 import { BiMusic } from "react-icons/bi";
-import { HiPlay } from "react-icons/hi";
+import { HiPlay, HiPause } from "react-icons/hi";
+import { MdCancel } from "react-icons/md";
 import microphone from "../../assets/microphone.svg";
 import RatePopUp from "../../components/Dashboard/RatePopUp";
+import ReactAudioPlayer from "react-audio-player";
 import { RaterContext } from "../../App";
+import { CurrentStreamTime } from "../../components/Dashboard/CurrentStreamTime";
+import axios from "axios";
 const Song = () => {
   const navigate = useNavigate();
   const [showRaterPopUp, setshowRaterPopUp] = useState(false);
-
+  const [showPlay, setShowPlay] = useState(false);
+  const [currentTime2, setCurrentTime2] = useState("00:00");
+  // console.log(currentTime2);
   const { baseUrl, token } = useContext(RaterContext);
   const [loading, setloading] = useState<boolean>();
+
   const [myMusic, setmyMusic] = useState<any>();
   let { id } = useParams();
+
   const playSvg = () => {
     return (
       <svg
@@ -76,7 +84,6 @@ const Song = () => {
       },
     })
       .then((res) => {
-        // console.log(res.data.data);
         setmyMusic(res.data.data);
 
         setloading(false);
@@ -84,6 +91,27 @@ const Song = () => {
 
       .catch((err) => console.log(err));
   }, [mytoken]);
+
+  const date = new Date();
+  // console.log(date);
+
+  let axiosConfig = {
+    headers: {
+      Authorization: `Bearer ${mytoken}`,
+    },
+  };
+  let postData = { listening_duration: currentTime2, listened_at: date };
+  const analyzeSong = async () => {
+    if (date && currentTime2) {
+      await Axios.post(
+        `${baseUrl}api/v1/song/analytics/${id}`,
+        postData,
+        axiosConfig
+      )
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    }
+  };
 
   const [side, setside] = useState("reviews");
 
@@ -194,10 +222,26 @@ const Song = () => {
                 <div className="text-[black] font-semibold text-[40px] max-sm:text-lg max-md:text-2xl">
                   {myMusic?.title}
                 </div>
-                <div className="font-medium text-[40px] text-[#3b71f7] underline cursor-pointer">
-                  <a href={myMusic.file_url} target="_blank">
-                    <HiPlay />
-                  </a>
+                <div className="font-medium text-[40px] text-[#3b71f7] underline cursor-pointer flex items-center">
+                  <div onClick={() => setShowPlay(!showPlay)}>
+                    {!showPlay ? (
+                      <HiPlay />
+                    ) : (
+                      <MdCancel
+                        className="text-4xl"
+                        onClick={() => analyzeSong()}
+                      />
+                    )}
+                  </div>
+                  {showPlay && (
+                    <div className="">
+                      <CurrentStreamTime
+                        src={myMusic.file_url}
+                        type={"audio"}
+                        setCurrentTime={setCurrentTime2}
+                      />
+                    </div>
+                  )}
                 </div>
                 <div className="h-[1px] w-full bg-[#dbd9d9] mt-3 mb-6 max-md:opacity-0 max-md:mt-0"></div>
                 {myMusic.ratings.length == 0 ? (

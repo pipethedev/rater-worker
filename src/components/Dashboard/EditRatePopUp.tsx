@@ -4,7 +4,7 @@ import { RaterContext } from "../../App";
 import { Toaster, toast } from "react-hot-toast";
 import { GrClose } from "react-icons/gr";
 
-const RatePopUp = ({ song_id, showRaterPopUp }) => {
+const EditRatePopUp = ({ song_id, showRaterPopUp }) => {
   const { baseUrl } = useContext(RaterContext);
   const [loader, setloader] = useState(false);
 
@@ -25,10 +25,9 @@ const RatePopUp = ({ song_id, showRaterPopUp }) => {
       improvementComment
     ) {
       axios
-        .post(
-          `${baseUrl}api/v1/rating/rate-song`,
+        .put(
+          `${baseUrl}api/v1/rating/rate-song/${song_id}`,
           {
-            song_id: song_id,
             rating: clicked,
             likeComment,
             disLikeComment,
@@ -73,7 +72,7 @@ const RatePopUp = ({ song_id, showRaterPopUp }) => {
       <Toaster />
       <div className="w-full items-center flex justify-between">
         <div className="w-full text-xl text-[#02123B] font-bold">
-          Rate and Review Song
+          Edit Previous Rating
         </div>
         <div>
           <GrClose
@@ -153,11 +152,11 @@ const RatePopUp = ({ song_id, showRaterPopUp }) => {
           onClick={RateSong}
           className="w-[96%] font-semibold text-base text-[white] h-[54px] flex items-center justify-center px-8 mt-4 max-sm:text-xs bg-[#3B71F7] rounded-[64px]"
         >
-          Give Rate and Review
+          Edit Previous Rating
         </button>
       </div>
     </div>
   );
 };
 
-export default RatePopUp;
+export default EditRatePopUp;

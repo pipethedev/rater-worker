@@ -10,14 +10,15 @@ import RatePopUp from "../../components/Dashboard/RatePopUp";
 import ReactAudioPlayer from "react-audio-player";
 import { RaterContext } from "../../App";
 import { CurrentStreamTime } from "../../components/Dashboard/CurrentStreamTime";
+import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
+import EditRatePopUp from "../../components/Dashboard/EditRatePopUp";
 const Song = () => {
   const navigate = useNavigate();
   const [showRaterPopUp, setshowRaterPopUp] = useState(false);
   const [showPlay, setShowPlay] = useState(false);
   const [currentTime2, setCurrentTime2] = useState("00:00");
-  // console.log(currentTime2);
-  const { baseUrl, token } = useContext(RaterContext);
+  const { baseUrl, token, user } = useContext(RaterContext);
   const [loading, setloading] = useState<boolean>();
 
   const [myMusic, setmyMusic] = useState<any>();
@@ -92,8 +93,17 @@ const Song = () => {
       .catch((err) => console.log(err));
   }, [mytoken]);
 
+  const [ratedBefore, setratedBefore] = useState(false);
+
+  const workerRated = myMusic?.ratings.find((val) => val.worker_id == user.id);
+  useEffect(() => {
+    if (workerRated) {
+      setratedBefore(true);
+    }
+  }, [workerRated]);
+
+  console.log(ratedBefore);
   const date = new Date();
-  // console.log(date);
 
   let axiosConfig = {
     headers: {
@@ -108,8 +118,11 @@ const Song = () => {
         postData,
         axiosConfig
       )
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+        .then((res) => {
+          toast.success(res.data.message);
+          console.log(res);
+        })
+        .catch((err) => toast.error("An error occured"));
     }
   };
 
@@ -120,9 +133,15 @@ const Song = () => {
       <div>
         <DashboardLayout>
           <div className="w-full">
-            {" "}
             {showRaterPopUp ? (
-              <RatePopUp song_id={id} showRaterPopUp={setshowRaterPopUp} />
+              ratedBefore ? (
+                <EditRatePopUp
+                  song_id={id}
+                  showRaterPopUp={setshowRaterPopUp}
+                />
+              ) : (
+                <RatePopUp song_id={id} showRaterPopUp={setshowRaterPopUp} />
+              )
             ) : null}
             <div className="w-full flex justify-between items-center h-[58px] mb-6">
               <div className="flex flex-col justify-between h-full">
@@ -139,7 +158,7 @@ const Song = () => {
                 className="font-semibold cursor-pointer text-sm text-[white] py-4 px-8 max-sm:px-4 max-sm:py-2 max-sm:text-xs bg-[#3B71F7] rounded-[64px]"
                 onClick={() => setshowRaterPopUp(true)}
               >
-                Rate and Review
+                {ratedBefore ? "Edit Review" : "Rate and Review"}
               </div>
             </div>
             <div className="flex gap-2 items-center border-t-[1px] border-b-[1px] border-[#e0dcdc] py-4 w-full">
@@ -328,7 +347,7 @@ const Song = () => {
               ) : side == "reviews" && myMusic.ratings.length > 0 ? (
                 <section className="w-full flex justify-between flex-wrap gap-8">
                   {myMusic.ratings.map((review, key) => {
-                    // console.log(review);
+                    console.log(review);
                     return (
                       <div
                         key={key}
@@ -344,7 +363,12 @@ const Song = () => {
                             <div className="text-[#02123b] text-base font-semibold">
                               {review.worker.first_name}
                             </div>
-                            <div className="w-full">{review.comment}</div>
+                            {/* <div className="w-full">{review.comment}</div> */}
+                            <ul>
+                              {/* <li>{review.like_comment}</li>
+                              <li>{review.dis_like_comment}</li> */}
+                              <li>{review.improvement_comment}</li>
+                            </ul>
                           </div>
                         </div>
                         <div className="bg-[#ebfff9] w-[100px] text-sm font-semibold text-[#00c288] py-1 text-center rounded-[64px]">

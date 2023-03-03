@@ -102,7 +102,6 @@ const Song = () => {
     }
   }, [workerRated]);
 
-  console.log(ratedBefore);
   const date = new Date();
 
   let axiosConfig = {
@@ -120,7 +119,6 @@ const Song = () => {
       )
         .then((res) => {
           toast.success(res.data.message);
-          console.log(res);
         })
         .catch((err) => toast.error("An error occured"));
     }
@@ -134,14 +132,7 @@ const Song = () => {
         <DashboardLayout>
           <div className="w-full">
             {showRaterPopUp ? (
-              ratedBefore ? (
-                <EditRatePopUp
-                  song_id={id}
-                  showRaterPopUp={setshowRaterPopUp}
-                />
-              ) : (
-                <RatePopUp song_id={id} showRaterPopUp={setshowRaterPopUp} />
-              )
+              <EditRatePopUp song_id={id} showRaterPopUp={setshowRaterPopUp} />
             ) : null}
             <div className="w-full flex justify-between items-center h-[58px] mb-6">
               <div className="flex flex-col justify-between h-full">
@@ -347,7 +338,6 @@ const Song = () => {
               ) : side == "reviews" && myMusic.ratings.length > 0 ? (
                 <section className="w-full flex justify-between flex-wrap gap-8">
                   {myMusic.ratings.map((review, key) => {
-                    console.log(review);
                     return (
                       <div
                         key={key}

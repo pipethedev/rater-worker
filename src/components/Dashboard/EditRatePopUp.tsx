@@ -7,6 +7,9 @@ import { GrClose } from "react-icons/gr";
 const EditRatePopUp = ({ song_id, showRaterPopUp }) => {
   const { baseUrl } = useContext(RaterContext);
   const [loader, setloader] = useState(false);
+  const [error, seterror] = useState(false);
+  const [error2, seterror2] = useState(false);
+  const [error3, seterror3] = useState(false);
 
   const mytoken = localStorage.getItem("token");
   const [clicked, setclicked] = useState<string>();
@@ -41,7 +44,7 @@ const EditRatePopUp = ({ song_id, showRaterPopUp }) => {
         )
         .then((res) => {
           console.log(res.data.data);
-          toast.success("Review Successfully Made");
+          toast.success("Review Successfully Updated");
           setTimeout(() => {
             location.reload();
           }, 2000);
@@ -59,6 +62,13 @@ const EditRatePopUp = ({ song_id, showRaterPopUp }) => {
       setloader(false);
     }
   };
+
+  useEffect(() => {
+    if (error || error2 || error3) {
+      toast.error("Maximum Input Limit Reached");
+      console.log("error occured");
+    }
+  }, [error, error2, error3]);
 
   //
   return (
@@ -117,22 +127,34 @@ const EditRatePopUp = ({ song_id, showRaterPopUp }) => {
       </div>
       <textarea
         placeholder="Write your song review here..."
-        className="border-[1px] outline-none border-[#beb5b5] rounded-xl px-4 py-3 scrollbar-hide"
+        maxLength={50}
+        className={`border-[1px] outline-none ${
+          error ? "border-[#e60000]" : "border-[#beb5b5]"
+        } rounded-xl px-4 py-3 scrollbar-hide`}
         cols={10}
         rows={10}
         value={likeComment}
-        onChange={(e) => setlikeComment(e?.target?.value)}
+        onChange={(e) => {
+          setlikeComment(e?.target?.value);
+          likeComment?.length == 49 ? seterror(true) : seterror(false);
+        }}
       ></textarea>
       <div className="w-full font-medium text-sm mt-2">
         What don't you like about this song?
       </div>
       <textarea
         placeholder="Write your song review here..."
-        className="border-[1px] outline-none border-[#beb5b5] rounded-xl px-4 py-3 scrollbar-hide"
+        className={`border-[1px] outline-none ${
+          error2 ? "border-[#e60000]" : "border-[#beb5b5]"
+        } rounded-xl px-4 py-3 scrollbar-hide`}
         cols={10}
+        maxLength={50}
         rows={10}
         value={disLikeComment}
-        onChange={(e) => setdisLikeComment(e?.target?.value)}
+        onChange={(e) => {
+          setdisLikeComment(e?.target?.value);
+          disLikeComment?.length == 49 ? seterror2(true) : seterror2(false);
+        }}
       ></textarea>
       <div className="w-full font-medium text-sm mt-2">
         Do you think this song is perfect? If not, what can be done to improve
@@ -140,11 +162,17 @@ const EditRatePopUp = ({ song_id, showRaterPopUp }) => {
       </div>
       <textarea
         placeholder="Write your song review here..."
-        className="border-[1px] outline-none border-[#beb5b5] rounded-xl px-4 py-3 scrollbar-hide"
+        className={`border-[1px] outline-none ${
+          error3 ? "border-[#e60000]" : "border-[#beb5b5]"
+        } rounded-xl px-4 py-3 scrollbar-hide`}
         cols={10}
         rows={10}
+        maxLength={50}
         value={improvementComment}
-        onChange={(e) => setimprovementComment(e?.target?.value)}
+        onChange={(e) => {
+          setimprovementComment(e?.target?.value);
+          improvementComment?.length == 49 ? seterror3(true) : seterror3(false);
+        }}
       ></textarea>
       <div className="w-full flex justify-center">
         {" "}

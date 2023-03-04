@@ -127,7 +127,7 @@ const EditRatePopUp = ({ song_id, showRaterPopUp }) => {
       </div>
       <textarea
         placeholder="Write your song review here..."
-        maxLength={50}
+        maxLength={60}
         className={`border-[1px] outline-none ${
           error ? "border-[#e60000]" : "border-[#beb5b5]"
         } rounded-xl px-4 py-3 scrollbar-hide`}
@@ -136,7 +136,7 @@ const EditRatePopUp = ({ song_id, showRaterPopUp }) => {
         value={likeComment}
         onChange={(e) => {
           setlikeComment(e?.target?.value);
-          likeComment?.length == 49 ? seterror(true) : seterror(false);
+          likeComment?.length == 59 ? seterror(true) : seterror(false);
         }}
       ></textarea>
       <div className="w-full font-medium text-sm mt-2">
@@ -148,12 +148,12 @@ const EditRatePopUp = ({ song_id, showRaterPopUp }) => {
           error2 ? "border-[#e60000]" : "border-[#beb5b5]"
         } rounded-xl px-4 py-3 scrollbar-hide`}
         cols={10}
-        maxLength={50}
+        maxLength={60}
         rows={10}
         value={disLikeComment}
         onChange={(e) => {
           setdisLikeComment(e?.target?.value);
-          disLikeComment?.length == 49 ? seterror2(true) : seterror2(false);
+          disLikeComment?.length == 59 ? seterror2(true) : seterror2(false);
         }}
       ></textarea>
       <div className="w-full font-medium text-sm mt-2">
@@ -167,11 +167,11 @@ const EditRatePopUp = ({ song_id, showRaterPopUp }) => {
         } rounded-xl px-4 py-3 scrollbar-hide`}
         cols={10}
         rows={10}
-        maxLength={50}
+        maxLength={60}
         value={improvementComment}
         onChange={(e) => {
           setimprovementComment(e?.target?.value);
-          improvementComment?.length == 49 ? seterror3(true) : seterror3(false);
+          improvementComment?.length == 59 ? seterror3(true) : seterror3(false);
         }}
       ></textarea>
       <div className="w-full flex justify-center">

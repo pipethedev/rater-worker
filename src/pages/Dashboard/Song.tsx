@@ -92,7 +92,7 @@ const Song = () => {
 
       .catch((err) => console.log(err));
   }, [mytoken]);
-
+  console.log(myMusic);
   const [ratedBefore, setratedBefore] = useState(false);
 
   const workerRated = myMusic?.ratings.find((val) => val.worker_id == user.id);
@@ -132,7 +132,13 @@ const Song = () => {
         <DashboardLayout>
           <div className="w-full">
             {showRaterPopUp ? (
-              <EditRatePopUp song_id={id} showRaterPopUp={setshowRaterPopUp} />
+              <EditRatePopUp
+                song_id={id}
+                showRaterPopUp={setshowRaterPopUp}
+                likeComent={myMusic?.ratings[0]?.like_comment}
+                dislikeComment={myMusic?.ratings[0]?.dis_like_comment}
+                improveComment={myMusic?.ratings[0]?.improvement_comment}
+              />
             ) : null}
             <div className="w-full flex justify-between items-center h-[58px] mb-6">
               <div className="flex flex-col justify-between h-full">

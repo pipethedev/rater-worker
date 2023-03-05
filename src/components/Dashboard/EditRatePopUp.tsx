@@ -4,7 +4,13 @@ import { RaterContext } from "../../App";
 import { Toaster, toast } from "react-hot-toast";
 import { GrClose } from "react-icons/gr";
 
-const EditRatePopUp = ({ song_id, showRaterPopUp }) => {
+const EditRatePopUp = ({
+  song_id,
+  showRaterPopUp,
+  likeComent,
+  dislikeComment,
+  improveComment,
+}) => {
   const { baseUrl } = useContext(RaterContext);
   const [loader, setloader] = useState(false);
   const [error, seterror] = useState(false);
@@ -14,9 +20,15 @@ const EditRatePopUp = ({ song_id, showRaterPopUp }) => {
   const mytoken = localStorage.getItem("token");
   const [clicked, setclicked] = useState<string>();
   const ratings = ["Good", "Fair", "Bad"];
-  const [likeComment, setlikeComment] = useState<string>();
-  const [disLikeComment, setdisLikeComment] = useState<string>();
-  const [improvementComment, setimprovementComment] = useState<string>();
+  const [likeComment, setlikeComment] = useState<
+    string | any | undefined | null
+  >(likeComent);
+  const [disLikeComment, setdisLikeComment] = useState<
+    string | any | undefined | null
+  >(dislikeComment);
+  const [improvementComment, setimprovementComment] = useState<
+    string | any | undefined | null
+  >(improveComment);
 
   const RateSong = () => {
     setloader(true);
@@ -82,7 +94,7 @@ const EditRatePopUp = ({ song_id, showRaterPopUp }) => {
       <Toaster />
       <div className="w-full items-center flex justify-between">
         <div className="w-full text-xl text-[#02123B] font-bold">
-          Edit Previous Rating
+          Upload Rating
         </div>
         <div>
           <GrClose
@@ -180,7 +192,7 @@ const EditRatePopUp = ({ song_id, showRaterPopUp }) => {
           onClick={RateSong}
           className="w-[96%] font-semibold text-base text-[white] h-[54px] flex items-center justify-center px-8 mt-4 max-sm:text-xs bg-[#3B71F7] rounded-[64px]"
         >
-          Edit Previous Rating
+          Upload Rating
         </button>
       </div>
     </div>

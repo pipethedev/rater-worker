@@ -229,7 +229,7 @@ const Home = () => {
                           <div className="font-bold text-sm text-[#3a00c2]">
                             No ratings yet
                           </div>
-                        ) : music?.ratings.length > 0 ? (
+                        ) : music?.ratings?.length > 0 ? (
                           music.ratings[0].rating == "Good" ? (
                             <div className="text-[#00C288] font-semibold text-base max-md:text-sm bg-[#EBFFF9] rounded-[64px] p-1 w-[75px] flex items-center justify-center">
                               {music?.ratings[0].rating}

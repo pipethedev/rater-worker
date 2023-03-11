@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext, useLayoutEffect } from "react";
 import InputContainer from "../components/InputContainer";
 import { useNavigate } from "react-router-dom";
 import { RaterContext } from "../App";
@@ -9,7 +9,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const mytoken = localStorage.getItem("token");
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (mytoken) {
       navigate("/dashboard/home");
     }

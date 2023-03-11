@@ -140,6 +140,7 @@ const Home = () => {
     );
   };
   if (mymusic && stats) {
+    console.log(mymusic)
     return (
       <div>
         <DashboardLayout>
@@ -217,34 +218,34 @@ const Home = () => {
                     <div
                       className="cursor-pointer max-md:w-full gap-4 max-md:gap-6 max-md:items-start my-4 flex flex-col max-md:flex-row max-md:border-b-[1px] max-md:border-[#ebe7e7] pb-2"
                       onClick={() => {
-                        navigate(`/dashboard/${music.id}`);
+                        navigate(`/dashboard/${music?.song?.id}`);
                       }}
                     >
                       {musicSvg()}
                       <div className="flex flex-col gap-2">
                         <div className="font-semibold text-[20px] text-[black] max-md:text-base">
-                          {music?.title}
+                          {music?.song?.title}
                         </div>
-                        {music?.ratings == 0 ? (
+                        {music?.song?.ratings == 0 ? (
                           <div className="font-bold text-sm text-[#3a00c2]">
                             No ratings yet
                           </div>
-                        ) : music?.ratings?.length > 0 ? (
-                          music.ratings[0].rating == "Good" ? (
+                        ) : music?.song?.ratings?.length > 0 ? (
+                          music?.song?.ratings[0].rating == "Good" ? (
                             <div className="text-[#00C288] font-semibold text-base max-md:text-sm bg-[#EBFFF9] rounded-[64px] p-1 w-[75px] flex items-center justify-center">
-                              {music?.ratings[0].rating}
+                              {music?.song?.ratings[0]?.rating}
                             </div>
-                          ) : music?.ratings[0]?.rating == "AlmostGood" ? (
+                          ) : music?.song?.ratings[0]?.rating == "AlmostGood" ? (
                             <div className="text-[#389e7f] font-semibold text-base max-md:text-sm bg-[#f4fcf9] rounded-[64px] p-1 w-[200px] flex items-center justify-center">
-                              Overall: {music.ratings[0].rating}
+                              Overall: {music.song?.ratings[0].rating}
                             </div>
-                          ) : music?.ratings[0]?.rating == "Fair" ? (
+                          ) : music?.song?.ratings[0]?.rating == "Fair" ? (
                             <div className="text-[#3a00c2] font-semibold text-base max-md:text-sm bg-[#d1c2f5] rounded-[64px] p-1 w-[75px] flex items-center justify-center">
-                              {music?.ratings[0]?.rating}
+                              {music?.song?.ratings[0]?.rating}
                             </div>
-                          ) : music?.ratings[0]?.rating == "Bad" ? (
+                          ) : music?.song?.ratings[0]?.rating == "Bad" ? (
                             <div className="text-[#e94444] font-semibold text-base max-md:text-sm bg-[#ffc107] rounded-[64px] p-1 w-[75px] flex items-center justify-center">
-                              {music?.ratings[0]?.rating}
+                              {music?.song?.ratings[0]?.rating}
                             </div>
                           ) : null
                         ) : null}

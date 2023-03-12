@@ -18,7 +18,7 @@ const EditRatePopUp = ({
   const [error3, seterror3] = useState(false);
 
   const mytoken = localStorage.getItem("token");
-  const [clicked, setclicked] = useState<string>();
+  const [clicked, setclicked] = useState<string>("");
   const ratings = ["Good", "Fair", "Bad"];
   const [likeComment, setlikeComment] = useState<
     string | any | undefined | null

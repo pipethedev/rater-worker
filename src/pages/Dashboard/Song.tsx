@@ -5,9 +5,8 @@ import Axios from "axios";
 import { BiMusic } from "react-icons/bi";
 import { HiPlay, HiPause } from "react-icons/hi";
 import { MdCancel } from "react-icons/md";
-import microphone from "../../assets/microphone.svg";
+import microphone from "../../assets/microphone.svg"; 
 import RatePopUp from "../../components/Dashboard/RatePopUp";
-import ReactAudioPlayer from "react-audio-player";
 import { RaterContext } from "../../App";
 import { CurrentStreamTime } from "../../components/Dashboard/CurrentStreamTime";
 import { toast, Toaster } from "react-hot-toast";
@@ -95,7 +94,7 @@ const Song = () => {
   console.log(myMusic);
   const [ratedBefore, setratedBefore] = useState(false);
 
-  const workerRated = myMusic?.ratings.find((val) => val.worker_id == user.id);
+  const workerRated = myMusic?.ratings.find((val) => val?.worker_id == user?.id);
   useEffect(() => {
     if (workerRated) {
       setratedBefore(true);
